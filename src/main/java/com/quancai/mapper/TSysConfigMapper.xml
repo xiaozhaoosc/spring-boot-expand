@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.quancai.dao.TSysConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.quancai.entity.TSysConfig" >
+    <id column="code" property="code" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="LONGVARCHAR" />
+    <result column="configType" property="configtype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Query_List" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="code != null" >
+        and `code` = #{code}
+      </if>
+      <if test="memo != null" >
+         and memo = #{memo}
+      </if>
+      <if test="name != null" >
+         and `name` = #{name}
+      </if>
+      <if test="value != null" >
+         and `value` = #{value}
+      </if>
+      <if test="configtype != null" >
+         and configType = #{configtype}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List" >
+    code, memo, `name`, `value`, configType
+  </sql>
+  <select id="count" parameterType="com.quancai.entity.TSysConfig" resultType="java.lang.Integer" >
+    select count(*) from t_sys_config
+    <include refid="Base_Query_List" />
+  </select>
+  <select id="getByPramas" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_config
+    where code = #{code}
+  </select>
+  <select id="listByPramas" resultMap="BaseResultMap" parameterType="com.quancai.entity.TSysConfig" >
+    select
+    <include refid="Base_Column_List" />
+    from t_sys_config
+    <include refid="Base_Query_List" />
+  </select>
+  <delete id="remove" parameterType="java.lang.String" >
+    delete from t_sys_config
+    where code = #{code}
+  </delete>
+  <insert id="save" parameterType="com.quancai.entity.TSysConfig" >
+    insert into t_sys_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="name != null" >
+        `name`,
+      </if>
+      <if test="value != null" >
+        `value`,
+      </if>
+      <if test="configtype != null" >
+        configType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="memo != null" >
+        #{memo},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="value != null" >
+        #{value},
+      </if>
+      <if test="configtype != null" >
+        #{configtype},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateById" parameterType="com.quancai.entity.TSysConfig" >
+    update t_sys_config
+    <set >
+      <if test="memo != null" >
+        memo = #{memo},
+      </if>
+      <if test="name != null" >
+        `name` = #{name},
+      </if>
+      <if test="value != null" >
+        `value` = #{value},
+      </if>
+      <if test="configtype != null" >
+        configType = #{configtype},
+      </if>
+    </set>
+    where code = #{code}
+  </update>
+</mapper>
